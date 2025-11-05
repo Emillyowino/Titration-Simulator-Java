@@ -34,3 +34,12 @@ bin/
 # Ignore IntelliJ project files
 /.idea
 /out
+
+# Ignore local database and test files
+experiments.db
+src/TestJSON.java
+
+# Ignore build/temporary files
+*.class
+*.log
+
