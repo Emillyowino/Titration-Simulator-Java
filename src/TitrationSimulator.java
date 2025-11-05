@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+import java.util.*;
 
 public class TitrationSimulator {
+
     private double acidConcentration, acidVolume, baseConcentration, maxBaseVolume, stepSize;
 
     public ArrayList<Double> volumes = new ArrayList<>();
@@ -37,6 +39,8 @@ public class TitrationSimulator {
     }
 
     public void runSimulator() {
+        SqlManager.initializeDatabase();
+
         double pH = 0;
         double baseMoles = 0;
         double excessHydrogenIons = 0;
@@ -44,11 +48,15 @@ public class TitrationSimulator {
         String previousRegion = "Acidic";
         String region = "";
 
+
+        List<ExperimentData.DataPoint> dataPoints = new ArrayList<>();
+
         System.out.printf("pH Transition Detected: \nBase volume [ml] | pH:   | Region\n");
         System.out.println("--------------------------------");
 
         double acidMoles = calculateMoles(acidConcentration, acidVolume);
 
+        // Checks if the titration is acidic, basic, or neutral after each stepsize.
         for (double baseVolume = 0; baseVolume <= maxBaseVolume; baseVolume += stepSize) {
             baseMoles = calculateMoles(baseConcentration, baseVolume);
 
@@ -66,7 +74,7 @@ public class TitrationSimulator {
                 pH = -Math.log10(excessOH);
             }
 
-            // Clamping pH values within 0 - 14 scale range
+            // Clamping pH values within 0 - 14 pH scale range
             if (pH < 0.0) {
                 pH = 0;
             } else if (pH > 14.00) {
@@ -82,6 +90,24 @@ public class TitrationSimulator {
             } else if (baseVolume == 0) {
                 System.out.printf("%-16.2f | %-6.2f | Initial strong acid\n", baseVolume, pH);
             }
+
+            dataPoints.add(new ExperimentData.DataPoint(baseVolume, pH));
+
+            SqlManager.insertData("Strong Acid + Strong Base", baseVolume, pH);
+
         }
+
+        // Save experiment to JSON file
+        ExperimentData.Experiment experiment = new ExperimentData.Experiment("Strong Acid + Strong Base", dataPoints);
+        ExperimentData.saveExperiment(experiment);
+        System.out.println("\nSaved experiment successfully!");
+        System.out.println("\nAll stored experiments:");
+        for (ExperimentData.Experiment e : ExperimentData.loadAll()) {
+            System.out.println("- " + e.name + " (" + e.data.size() + " points)");
+        }
+
+        SqlManager.compareRuns();
+
     }
+
 }
