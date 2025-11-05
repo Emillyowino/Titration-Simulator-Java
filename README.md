@@ -17,7 +17,6 @@ Simulates an acid-base titration in Java, calculates pH at each step, detects th
 
 ## 📂 Project Structure
 
-```text
 Titration-Simulator-Java/
 ├── src/
 │   ├── Chemistry.java          # Main program, handles user input
@@ -32,10 +31,8 @@ Titration-Simulator-Java/
 ├── graph_screenshot.png        # Screenshot of a titration curve
 └── README.md                   # Project description and instructions
 
-
 ## Screenshot
 ![Titration Curve Screenshot](graph_screenshot.png)
-
 
 ---
 
@@ -50,5 +47,8 @@ javac -cp ".;src;lib/*" src/*.java
 # Run the simulator
 java -cp ".;src;lib/*" Chemistry
 
+# (Optional) Compare stored experiments
 java -cp ".;src;lib/*" CompareExperiments
+
+
 
