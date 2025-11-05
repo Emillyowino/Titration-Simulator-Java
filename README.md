@@ -17,21 +17,21 @@ Simulates an acid-base titration in Java, calculates pH at each step, detects th
 
 ## 📂 Project Structure
 
-Titration.java/
-│
+```text
+Titration-Simulator-Java/
 ├── src/
-│ ├── Chemistry.java # Main program, handles user input
-│ ├── TitrationSimulator.java # Core simulator logic, equivalence detection, and data saving
-│ ├── TitrationGraph.java # Generates graph of pH vs. volume using Swing
-│ ├── SqlManager.java # Manages SQLite connection and data storage
-│ ├── ExperimentData.java # Handles experiment serialization (JSON + Gson)
-│ ├── lib/
-│ │ ├── gson-2.10.1.jar # Gson library for JSON
-│ │ └── sqlite-jdbc.jar # SQLite JDBC driver
-│ └── experiments.json # Optional: sample experiment data
-│
-├── graph_screenshot.png # Screenshot of a titration curve
-└── README.md
+│   ├── Chemistry.java          # Main program, handles user input
+│   ├── TitrationSimulator.java # Core simulator logic, equivalence detection, and data saving
+│   ├── TitrationGraph.java     # Generates graph of pH vs. volume using Swing
+│   ├── SqlManager.java         # Manages SQLite connection and data storage
+│   ├── ExperimentData.java     # Handles experiment serialization (JSON + Gson)
+│   └── lib/
+│       ├── gson-2.10.1.jar     # Gson library for JSON
+│       └── sqlite-jdbc.jar     # SQLite JDBC driver
+├── experiments.json            # Sample experiment data
+├── graph_screenshot.png        # Screenshot of a titration curve
+└── README.md                   # Project description and instructions
+
 
 ## Screenshot
 ![Titration Curve Screenshot](graph_screenshot.png)
